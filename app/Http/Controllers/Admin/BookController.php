@@ -23,7 +23,7 @@ class BookController extends Controller
 
         // Ambil jumlah item per halaman dari request, default ke 5
         $perPage = $request->input('per_page', 5);
-        $books = $query->paginate($perPage);
+        $books = $query->orderBy('created_at', 'desc')->paginate($perPage);
 
         return Inertia::render('Books/Index', [
             'books' => $books,
