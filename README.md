@@ -1,3 +1,6 @@
+![CRUD Screenshot](public/assets/screenshoot/crud.png)
+
+
 ## How To
 
 ````
