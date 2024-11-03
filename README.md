@@ -16,3 +16,8 @@ npm install @inertiajs/inertia @inertiajs/inertia-react react react-dom
 npm install react-bootstrap bootstrap
 
 ````
+
+````
+composer require fzaninotto/faker
+
+````
