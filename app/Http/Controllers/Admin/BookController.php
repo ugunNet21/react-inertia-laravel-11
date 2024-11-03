@@ -21,14 +21,17 @@ class BookController extends Controller
                   ->orWhere('author', 'like', "%{$search}%");
         }
 
-        // Pagination
-        $books = $query->paginate(5);
+        // Ambil jumlah item per halaman dari request, default ke 5
+        $perPage = $request->input('per_page', 5);
+        $books = $query->paginate($perPage);
 
         return Inertia::render('Books/Index', [
             'books' => $books,
             'search' => $request->input('search'),
+            'per_page' => $perPage, // Kirim nilai per_page ke view
         ]);
     }
+
     public function create()
     {
         return Inertia::render('Books/Create');

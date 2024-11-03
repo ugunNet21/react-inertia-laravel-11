@@ -10,8 +10,9 @@ import {
 
 import { Inertia } from "@inertiajs/inertia";
 
-const Index = ({ books, search }) => {
+const Index = ({ books, search, per_page }) => {
     const [loading, setLoading] = useState(false);
+    const [itemsPerPage, setItemsPerPage] = useState(per_page);
 
     const handleDelete = (id) => {
         if (confirm('Are you sure you want to delete this book?')) {
@@ -25,7 +26,13 @@ const Index = ({ books, search }) => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        Inertia.get('/books', { search }, { preserveState: true });
+        Inertia.get('/books', { search, per_page: itemsPerPage }, { preserveState: true });
+    };
+
+    const handleItemsPerPageChange = (e) => {
+        const value = e.target.value;
+        setItemsPerPage(value);
+        Inertia.get('/books', { search, per_page: value }, { preserveState: true });
     };
 
     return (
@@ -37,12 +44,19 @@ const Index = ({ books, search }) => {
                         <Form.Control
                             type="text"
                             placeholder="Search by title or author"
-                            value={search || ""}  // Pastikan nilai tidak null
-                            onChange={(e) => Inertia.get('/books', { search: e.target.value }, { preserveState: true })}
+                            value={search || ""}
+                            onChange={(e) => Inertia.get('/books', { search: e.target.value, per_page: itemsPerPage }, { preserveState: true })}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit" className="ms-2">Search</Button>
                 </Form>
+            </div>
+            <div className="mb-3">
+                <Form.Select value={itemsPerPage} onChange={handleItemsPerPageChange} aria-label="Select items per page">
+                    <option value={10}>10</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                </Form.Select>
             </div>
             <Button variant="primary" href="/books/create" className="mb-3">Add Book</Button>
             {loading && <Spinner animation="border" />}
@@ -77,7 +91,7 @@ const Index = ({ books, search }) => {
                             <li key={link.label} className={`page-item ${link.active ? 'active' : ''}`}>
                                 <Button
                                     className="page-link"
-                                    onClick={() => Inertia.get(link.url, { preserveState: true })}
+                                    onClick={() => Inertia.get(link.url, { preserveState: true, per_page: itemsPerPage })}
                                     dangerouslySetInnerHTML={{ __html: link.label }} // Menampilkan HTML dengan benar
                                 />
                             </li>
