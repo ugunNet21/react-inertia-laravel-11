@@ -24,3 +24,8 @@ npm install react-bootstrap bootstrap
 composer require fzaninotto/faker
 
 ````
+
+````
+php artisan migrate:fresh --seed
+
+````
