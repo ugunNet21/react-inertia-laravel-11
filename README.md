@@ -29,3 +29,10 @@ composer require fzaninotto/faker
 php artisan migrate:fresh --seed
 
 ````
+
+- install wayfinder
+
+````
+composer require laravel/wayfinder --dev
+
+````
