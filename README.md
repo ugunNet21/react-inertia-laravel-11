@@ -30,9 +30,12 @@ php artisan migrate:fresh --seed
 
 ````
 
-- install wayfinder
+- install wayfinder harus berurutan
 
 ````
 composer require laravel/wayfinder --dev
+npm install -D vite-plugin-run
+php artisan wayfinder:generate
 
 ````
+- Setelah generate wayfinder dia akan membuat routes yg ada di controller
